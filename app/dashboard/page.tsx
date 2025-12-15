@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Vote, Users, BarChart3, Bell, Trophy, ArrowRight, Clock } from "lucide-react";
 import Link from "next/link";
+import { useAuthGuard } from "@/hooks/useAuthGuard";
 
 
 const votingRounds = [
@@ -65,7 +66,13 @@ const notifications = [
 
 
 const Dashboard = () => {
-return   <div className="min-h-screen bg-background">
+  const isAuthenticated = useAuthGuard();
+
+  if (!isAuthenticated) {
+    return null; // Will redirect to home
+  }
+
+  return <div className="min-h-screen bg-background">
       <Navbar />
       
       <main className="container py-8 space-y-8 mx-auto">

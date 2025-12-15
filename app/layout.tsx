@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
 import FirstTimeModal from "@/components/FirstTimeModal";
+import Providers from "@/providers";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -12,7 +13,8 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "Meritium",
-  description: "Meritium is a privacy-focused promotion voting system that uses encrypted, reputation-weighted ballots to ensure fair, bias-free corporate advancement decisions.",
+  description:
+    "Meritium is a privacy-focused promotion voting system that uses encrypted, reputation-weighted ballots to ensure fair, bias-free corporate advancement decisions.",
 };
 
 export default function RootLayout({
@@ -22,12 +24,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" data-scroll-behavior="smooth">
-      <body
-        className={`${inter.className} font-sans antialiased relative`}
-      >
+      <body className={`${inter.className} font-sans antialiased relative`}>
         <Toaster richColors position="top-right" />
-        <FirstTimeModal />
-        {children}
+        <Providers>
+          <FirstTimeModal />
+          {children}
+        </Providers>
       </body>
     </html>
   );
