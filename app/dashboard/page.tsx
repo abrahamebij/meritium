@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Vote, Users, BarChart3, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { useAuthGuard } from "@/hooks/useAuthGuard";
-
+import { useFhevm } from "@/hooks/useFhevm";
 
 const votingRounds = [
   {
@@ -37,19 +37,19 @@ const votingRounds = [
   },
 ];
 
-
-
-
 const Dashboard = () => {
   const isAuthenticated = useAuthGuard();
+  const { instance } = useFhevm();
+  console.log("instance: ", instance);
 
   if (!isAuthenticated) {
     return null; // Will redirect to home
   }
 
-  return <div className="min-h-screen bg-background">
+  return (
+    <div className="min-h-screen bg-background">
       <Navbar />
-      
+
       <main className="container py-8 space-y-8 mx-auto">
         {/* Welcome Section */}
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
@@ -101,7 +101,10 @@ const Dashboard = () => {
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <h2 className="text-xl font-semibold">Active Voting Rounds</h2>
-            <Link href="/vote" className="text-sm text-primary hover:underline flex items-center gap-1">
+            <Link
+              href="/vote"
+              className="text-sm text-primary hover:underline flex items-center gap-1"
+            >
               View all <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
@@ -113,6 +116,7 @@ const Dashboard = () => {
         </div>
       </main>
     </div>
-}
+  );
+};
 
 export default Dashboard

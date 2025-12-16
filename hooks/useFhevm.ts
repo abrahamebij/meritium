@@ -1,5 +1,10 @@
 import { useEffect, useState } from 'react';
-import { createInstance, FhevmInstance, initSDK, SepoliaConfig } from '@zama-fhe/relayer-sdk/bundle';
+import {
+  initSDK,
+  createInstance,
+  SepoliaConfig,
+  FhevmInstance
+} from '@zama-fhe/relayer-sdk/bundle';
 
 
 export const useFhevm = () => {
@@ -11,14 +16,11 @@ export const useFhevm = () => {
 
     const setup = async () => {
       try {
-        await initSDK(); // Load WASM
-        const config = { ...SepoliaConfig, network: window.ethereum };
-        // Connect to Zama Gateway (Devnet/Sepolia)
-        const newInstance = await createInstance(SepoliaConfig);
-        setInstance(newInstance);
+        await initSDK(); // Load needed WASM
+        // const newInstance = await createInstance(SepoliaConfig);
+        const config = await createInstance({ ...SepoliaConfig, network: window.ethereum });
 
-
-
+        setInstance(config);
         setIsInitialized(true);
       } catch (e) {
         console.error("Failed to init FHEVM instance:", e);
@@ -28,5 +30,5 @@ export const useFhevm = () => {
     setup();
   }, [isInitialized]);
 
-  return instance;
+  return { instance };
 };
