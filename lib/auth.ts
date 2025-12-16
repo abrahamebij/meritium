@@ -8,14 +8,14 @@ export interface AuthSession {
   timestamp: number;
 }
 
-export const getAuthSession = (): AuthSession | null => {
+export const getAuthSession = (): string | null => {
   if (typeof window === 'undefined') return null;
   
-  const session = localStorage.getItem('meritium_user');
+  const session = localStorage.getItem('meritium_address');
   if (!session) return null;
   
   try {
-    return JSON.parse(session);
+    return session;
   } catch {
     return null;
   }
@@ -23,12 +23,12 @@ export const getAuthSession = (): AuthSession | null => {
 
 export const isAuthenticated = (): boolean => {
   const session = getAuthSession();
-  return !!session?.address;
+  return !!session;
 };
 
 export const clearAuthSession = (): void => {
   if (typeof window !== 'undefined') {
-    localStorage.removeItem('meritium_user');
+    localStorage.removeItem('meritium_address');
   }
 };
 

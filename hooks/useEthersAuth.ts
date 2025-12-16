@@ -17,8 +17,8 @@ export const useEthersAuth = () => {
 
   useEffect(() => {
     const session = getAuthSession();
-    if (session?.address) {
-      setAddress(session.address);
+    if (session) {
+      setAddress(session);
       setIsConnected(true);
     }
   }, []);

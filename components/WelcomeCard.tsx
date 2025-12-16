@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { Building2, Sparkles } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Button } from "./ui/button";
@@ -19,29 +19,34 @@ export default function WelcomeCard({ onGetStarted }: WelcomeCardProps) {
           <Sparkles className="w-5 h-5 text-yellow-500" />
         </CardTitle>
       </CardHeader>
-      
+
       <CardContent className="text-center space-y-6">
         <div className="space-y-3">
           <p className="text-gray-700 font-medium">
-            You&apos;re now pretending to work at <span className="text-blue-600 font-semibold">CorpNova</span>
+            You&apos;re now pretending to work at{" "}
+            <span className="text-blue-600 font-semibold">CorpNova</span>
           </p>
+
           <p className="text-gray-600 text-sm leading-relaxed">
-            Explore our internal prediction markets platform, Certus. Create and participate in 
-            crypto and weather predictions with automated outcomes powered by verified real-world data.
+            Meritium lets employees evaluate promotions fairly using anonymised
+            achievements and secure, encrypted voting—so decisions are based on
+            merit, not politics.
           </p>
         </div>
-        
+
         <div className="bg-white/70 rounded-lg p-4 border border-blue-200">
           <p className="text-xs text-gray-500 mb-2">Your Role:</p>
-          <p className="text-sm font-medium text-gray-700">Market Research Analyst</p>
+          <p className="text-sm font-medium text-gray-700">
+            Market Research Analyst
+          </p>
         </div>
-        
-        <Button 
+
+        <Button
           onClick={onGetStarted}
           className="w-full bg-blue-600 hover:bg-blue-700 text-white"
           size="lg"
         >
-          Enter Certus Platform
+          Enter Meritium Platform
         </Button>
       </CardContent>
     </Card>

@@ -15,6 +15,7 @@ import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useEthersAuth } from "@/hooks/useEthersAuth";
 
+
 const Home = () => {
   const router = useRouter();
   const {
@@ -28,13 +29,13 @@ const Home = () => {
   const [isSigning, setIsSigning] = useState(false);
 
   // console.log("address: ", address);
-  // Optional: Check if already logged in on mount
+  // Check if already authenticated on mount
   useEffect(() => {
-    const savedUser = localStorage.getItem("meritium_user");
-    if (savedUser && isConnected) {
+    const savedUser = localStorage.getItem("meritium_address");
+    if (savedUser) {
       router.push("/dashboard");
     }
-  }, [isConnected, router]);
+  }, [router]);
 
   const handleConnect = async () => {
     const userAddress = await connectWallet();
@@ -54,7 +55,7 @@ const Home = () => {
           message: authData.message,
           timestamp: Date.now(),
         };
-        localStorage.setItem("meritium_user", JSON.stringify(sessionData));
+        localStorage.setItem("meritium_address", JSON.stringify(sessionData));
         console.log("Session saved:", sessionData);
         router.push("/dashboard");
       }

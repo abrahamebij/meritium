@@ -1,6 +1,7 @@
 "use client"
 import { useState } from "react";
 import { Navbar } from "@/components/Navbar";
+import { useAuthGuard } from "@/hooks/useAuthGuard";
 import { CandidateCard } from "@/components/CandidateCard";
 import { VotingConfirmationModal } from "@/components/VotingConfirmationModal";
 import { Card, CardContent } from "@/components/ui/card";
@@ -61,6 +62,7 @@ const candidates = [
 ];
 
 const Vote = () => {
+  const isAuthenticated = useAuthGuard();
   const [selectedCandidate, setSelectedCandidate] = useState<string | null>(null);
   const [hasVoted, setHasVoted] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
@@ -75,6 +77,10 @@ const Vote = () => {
       setShowConfirmation(true);
     }
   };
+
+  if (!isAuthenticated) {
+    return null;
+  }
 
   return (
     <div className="min-h-screen bg-background">

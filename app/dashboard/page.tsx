@@ -2,11 +2,8 @@
 import { Navbar } from "@/components/Navbar";
 import { VotingRoundCard } from "@/components/VotingRoundCard";
 import { StatCard } from "@/components/StatCard";
-import { AchievementBadge } from "@/components/AchievementBadge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Vote, Users, BarChart3, Bell, Trophy, ArrowRight, Clock } from "lucide-react";
+import { Vote, Users, BarChart3, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { useAuthGuard } from "@/hooks/useAuthGuard";
 
@@ -40,29 +37,7 @@ const votingRounds = [
   },
 ];
 
-const notifications = [
-  {
-    id: 1,
-    title: "New voting round started",
-    message: "Q4 2024 Promotion Cycle is now open for voting",
-    time: "2 hours ago",
-    type: "info",
-  },
-  {
-    id: 2,
-    title: "Badge earned!",
-    message: "You've earned the 'Consistent Voter' badge",
-    time: "1 day ago",
-    type: "success",
-  },
-  {
-    id: 3,
-    title: "Reminder",
-    message: "Engineering Excellence Award voting ends in 5 days",
-    time: "2 days ago",
-    type: "warning",
-  },
-];
+
 
 
 const Dashboard = () => {
@@ -101,7 +76,7 @@ const Dashboard = () => {
         </div>
 
         {/* Stats */}
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-4 md:grid-cols-3">
           <StatCard
             title="Active Rounds"
             value={2}
@@ -113,7 +88,6 @@ const Dashboard = () => {
             value={12}
             description="This year"
             icon={Users}
-            trend={{ value: 20, isPositive: true }}
           />
           <StatCard
             title="Participation Rate"
@@ -121,91 +95,20 @@ const Dashboard = () => {
             description="Above company average"
             icon={BarChart3}
           />
-          <StatCard
-            title="Badges Earned"
-            value={5}
-            description="Keep up the great work!"
-            icon={Trophy}
-          />
         </div>
 
-        <div className="grid gap-8 lg:grid-cols-3">
-          {/* Voting Rounds */}
-          <div className="lg:col-span-2 space-y-4">
-            <div className="flex items-center justify-between">
-              <h2 className="text-xl font-semibold">Active Voting Rounds</h2>
-              <Link href="/vote" className="text-sm text-primary hover:underline flex items-center gap-1">
-                View all <ArrowRight className="h-4 w-4" />
-              </Link>
-            </div>
-            <div className="grid gap-4 md:grid-cols-2">
-              {votingRounds.map((round, index) => (
-                <VotingRoundCard key={index} {...round} />
-              ))}
-            </div>
+        {/* Voting Rounds */}
+        <div className="space-y-4">
+          <div className="flex items-center justify-between">
+            <h2 className="text-xl font-semibold">Active Voting Rounds</h2>
+            <Link href="/vote" className="text-sm text-primary hover:underline flex items-center gap-1">
+              View all <ArrowRight className="h-4 w-4" />
+            </Link>
           </div>
-
-          {/* Sidebar */}
-          <div className="space-y-6">
-            {/* Your Badges */}
-            <Card>
-              <CardHeader className="pb-3">
-                <CardTitle className="text-lg flex items-center gap-2">
-                  <Trophy className="h-5 w-5 text-accent" />
-                  Your Badges
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="flex flex-wrap gap-4 justify-center">
-                  <AchievementBadge type="first-voter" />
-                  <AchievementBadge type="consistent" />
-                  <AchievementBadge type="engaged" />
-                  <AchievementBadge type="champion" />
-                  <AchievementBadge type="achiever" />
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Notifications */}
-            <Card>
-              <CardHeader className="pb-3">
-                <CardTitle className="text-lg flex items-center gap-2">
-                  <Bell className="h-5 w-5" />
-                  Notifications
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                {notifications.map((notification) => (
-                  <div
-                    key={notification.id}
-                    className="flex gap-3 p-3 rounded-lg bg-muted/50 hover:bg-muted transition-colors"
-                  >
-                    <div className="flex-1 space-y-1">
-                      <p className="text-sm font-medium">{notification.title}</p>
-                      <p className="text-xs text-muted-foreground">
-                        {notification.message}
-                      </p>
-                      <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                        <Clock className="h-3 w-3" />
-                        {notification.time}
-                      </div>
-                    </div>
-                    <Badge
-                      variant={
-                        notification.type === "success"
-                          ? "success"
-                          : notification.type === "warning"
-                          ? "gold"
-                          : "secondary"
-                      }
-                      className="h-fit"
-                    >
-                      {notification.type}
-                    </Badge>
-                  </div>
-                ))}
-              </CardContent>
-            </Card>
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {votingRounds.map((round, index) => (
+              <VotingRoundCard key={index} {...round} />
+            ))}
           </div>
         </div>
       </main>
